@@ -12,7 +12,7 @@ function Redirecionar(){
 	
 	var nomeInformado = prompt("Favor informar um nome: ", "");
 	
-	window.location.href = "/olaMundoSpring";
+	window.location.href = "/fj21-tarefas/olaMundoSpring";
 }
 	
 </script>
