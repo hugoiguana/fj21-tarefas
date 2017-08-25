@@ -1,4 +1,4 @@
-package br.com.caelum.jdbc;
+package br.com.caleum.tarefas.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,8 +9,10 @@ public class ConectionFactory {
 	public Connection getConection() {
 
 		try {
+			
 			Class.forName("org.postgresql.Driver");	
 			return DriverManager.getConnection("jdbc:postgresql://localhost/fj21", "postgres", "admin");
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} catch (ClassNotFoundException e) {

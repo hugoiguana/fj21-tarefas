@@ -1,4 +1,12 @@
 ------------------------------------------------------------------------------
+CREATE SEQUENCE public.tarefas_id_seq
+    INCREMENT 1
+    START 1
+;
+
+ALTER SEQUENCE public.tarefas_id_seq
+    OWNER TO postgres;
+------------------------------------------------------------------------------
 -- Table: public.tarefas
 
 -- DROP TABLE public.tarefas;
