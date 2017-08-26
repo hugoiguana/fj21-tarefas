@@ -6,19 +6,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Tarefa adicionada</title>
 
-<link href="css/jquery-ui.min.css" rel="stylesheet">
-<script src="js/jquery.js"></script>
-<script src="js/jquery-ui.min.js"></script>
-
 </head>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 
 <body>
 
-<c:import url="/WEB-INF/views/cabecalho.jsp" />
+<%-- <c:import url="/WEB-INF/views/cabecalho.jsp" /> --%>
 
-<h2>Nova tarefa adicionada com sucesso!</h2>
+<h2><fmt:message key="tarefa.adicionada.com.sucesso" /></h2>
 
 </body>
 </html>
