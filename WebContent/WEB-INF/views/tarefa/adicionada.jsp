@@ -19,5 +19,7 @@
 
 <h2><fmt:message key="tarefa.adicionada.com.sucesso" /></h2>
 
+<a href="listaTarefas"><fmt:message key="tarefa.adicionada.lista_tarefa"/></a>
+
 </body>
 </html>

@@ -59,13 +59,13 @@ public class JdbcTarefaDao {
 		}
 	}
 
-	public List<Tarefa> getContatos() {
+	public List<Tarefa> getTarefas() {
 
 		try {
 
 			List<Tarefa> tarefas = new ArrayList<Tarefa>();
 
-			String sql = "SELECT * FROM contatos";
+			String sql = "SELECT * FROM tarefas";
 
 			PreparedStatement stmt = this.con.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
@@ -77,9 +77,11 @@ public class JdbcTarefaDao {
 				tarefa.setDescricao(rs.getString("descricao"));
 				tarefa.setFinalizado(rs.getBoolean("finalizado"));
 
-				Calendar dataFinalizacao = Calendar.getInstance();
-				dataFinalizacao.setTime(rs.getDate("dataFinalizacao"));
-				tarefa.setDataFinalizacao(dataFinalizacao);
+				if(rs.getDate("dataFinalizacao") != null) {
+					Calendar dataFinalizacao = Calendar.getInstance();
+					dataFinalizacao.setTime(rs.getDate("dataFinalizacao"));
+					tarefa.setDataFinalizacao(dataFinalizacao);					
+				}
 
 				tarefas.add(tarefa);
 			}
