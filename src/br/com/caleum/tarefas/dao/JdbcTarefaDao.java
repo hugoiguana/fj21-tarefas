@@ -45,9 +45,11 @@ public class JdbcTarefaDao {
 			tarefa.setDescricao(rs.getString("descricao"));
 			tarefa.setFinalizado(rs.getBoolean("finalizado"));
 
-			Calendar dataFinalizacao = Calendar.getInstance();
-			dataFinalizacao.setTime(rs.getDate("dataFinalizacao"));
-			tarefa.setDataFinalizacao(dataFinalizacao);
+			if (rs.getDate("dataFinalizacao") != null) {
+				Calendar dataFinalizacao = Calendar.getInstance();
+				dataFinalizacao.setTime(rs.getDate("dataFinalizacao"));
+				tarefa.setDataFinalizacao(dataFinalizacao);
+			}
 
 			rs.close();
 			stmt.close();
@@ -65,7 +67,7 @@ public class JdbcTarefaDao {
 
 			List<Tarefa> tarefas = new ArrayList<Tarefa>();
 
-			String sql = "SELECT * FROM tarefas";
+			String sql = "SELECT * FROM tarefas ORDER BY id";
 
 			PreparedStatement stmt = this.con.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
@@ -77,10 +79,10 @@ public class JdbcTarefaDao {
 				tarefa.setDescricao(rs.getString("descricao"));
 				tarefa.setFinalizado(rs.getBoolean("finalizado"));
 
-				if(rs.getDate("dataFinalizacao") != null) {
+				if (rs.getDate("dataFinalizacao") != null) {
 					Calendar dataFinalizacao = Calendar.getInstance();
 					dataFinalizacao.setTime(rs.getDate("dataFinalizacao"));
-					tarefa.setDataFinalizacao(dataFinalizacao);					
+					tarefa.setDataFinalizacao(dataFinalizacao);
 				}
 
 				tarefas.add(tarefa);
@@ -103,16 +105,19 @@ public class JdbcTarefaDao {
 			StringBuilder sql = new StringBuilder();
 
 			sql.append(" INSERT INTO tarefas");
-			sql.append(" (descricao, finalizado)");
-			sql.append(" VALUES (?, ?)");
-//			sql.append(" (descricao, finalizado, dataFinalizacao)");
-//			sql.append(" VALUES (?, ?, ?)");			
+			sql.append(" ( descricao, finalizado, \"dataFinalizacao\" )");
+			sql.append(" VALUES (?, ?, ?)");
 
 			PreparedStatement stmt = this.con.prepareStatement(sql.toString());
 
 			stmt.setString(1, tarefa.getDescricao());
 			stmt.setBoolean(2, tarefa.getFinalizado());
-//			stmt.setDate(3, new Date(tarefa.getDataFinalizacao().getTimeInMillis()));
+
+			if (tarefa.getDataFinalizacao() != null) {
+				stmt.setDate(3, new Date(tarefa.getDataFinalizacao().getTimeInMillis()));
+			} else {
+				stmt.setDate(3, null);
+			}
 
 			stmt.execute();
 			stmt.close();
@@ -127,7 +132,7 @@ public class JdbcTarefaDao {
 		StringBuilder sql = new StringBuilder();
 
 		sql.append(" UPDATE tarefas");
-		sql.append(" SET descricao=?, finalizado=?, dataFinalizacao=?");
+		sql.append(" SET descricao=?, finalizado=?, \"dataFinalizacao\"=?");
 		sql.append(" WHERE id=?");
 
 		try {
@@ -136,7 +141,13 @@ public class JdbcTarefaDao {
 
 			stmt.setString(1, tarefa.getDescricao());
 			stmt.setBoolean(2, tarefa.getFinalizado());
-			stmt.setDate(3, new Date(tarefa.getDataFinalizacao().getTimeInMillis()));
+
+			if (tarefa.getDataFinalizacao() != null) {
+				stmt.setDate(3, new Date(tarefa.getDataFinalizacao().getTimeInMillis()));
+			} else {
+				stmt.setDate(3, null);
+			}
+
 			stmt.setLong(4, tarefa.getId());
 
 			stmt.execute();

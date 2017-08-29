@@ -22,6 +22,8 @@
 			<th><fmt:message key="tarefa.lista.descricao" /></th>
 			<th><fmt:message key="tarefa.lista.finalizado" /></th>
 			<th><fmt:message key="tarefa.lista.dt_finalizacao" /></th>
+			<th></th>
+			<th></th>
 		</tr>
 		<c:forEach items="${tarefas}" var="tarefa">
 			<tr>
@@ -34,6 +36,8 @@
 					<td><fmt:message key="tarefa.lista.finalizado"/></td>
 				</c:if>
 				<td><fmt:formatDate value="${tarefa.dataFinalizacao.time}" pattern="dd/MM/yyyy" /></td>
+				<td><a href="removeTarefa?id=${tarefa.id}"><fmt:message key="tarefa.lista.remover"/></a></td>
+				<td><a href="mostraTarefa?id=${tarefa.id}"><fmt:message key="tarefa.lista.alterar"/></a></td>
 			</tr>
 		</c:forEach>
 	</table>

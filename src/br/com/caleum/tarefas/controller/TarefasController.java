@@ -14,36 +14,64 @@ import br.com.caleum.tarefas.dao.JdbcTarefaDao;
 public class TarefasController {
 
 	@RequestMapping("novaTarefa")
-	public String form(){
+	public String form() {
 		return "tarefa/formulario";
 	}
-	
-	
+
 	@RequestMapping("adicionaTarefa")
-	public String adiciona(@Valid Tarefa tarefa, BindingResult result){
-	
-		if(result.hasFieldErrors("descricao")){
+	public String adiciona(@Valid Tarefa tarefa, BindingResult result) {
+
+		if (result.hasFieldErrors("descricao")) {
 			return "tarefa/formulario";
 		}
-		
-//		if(result.hasErrors()){
-//			return "tarefa/formulario";
-//		}
-		
+
+		// if(result.hasErrors()){
+		// return "tarefa/formulario";
+		// }
+
 		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
 		tarefaDao.adiciona(tarefa);
-		
+
 		return "tarefa/adicionada";
 	}
-	
-	
+
 	@RequestMapping("listaTarefas")
 	public String lista(Model model) {
-	
+
 		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
-		
+
 		model.addAttribute("tarefas", tarefaDao.getTarefas());
-		
+
 		return "tarefa/lista";
+	}
+
+	@RequestMapping("removeTarefa")
+	public String remove(Tarefa tarefa) {
+
+		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
+
+		tarefaDao.exclui(tarefa.getId());
+
+		return "redirect:listaTarefas";
+	}
+
+	@RequestMapping("mostraTarefa")
+	public String mostra(Tarefa tarefa, Model model) {
+
+		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
+
+		model.addAttribute("tarefa", tarefaDao.getById(tarefa.getId()));
+
+		return "tarefa/mostra";
+	}
+
+	@RequestMapping("alteraTarefa")
+	public String altera(Tarefa tarefa) {
+
+		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
+
+		tarefaDao.altera(tarefa);
+
+		return "redirect:listaTarefas";
 	}
 }
