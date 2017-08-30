@@ -172,4 +172,27 @@ public class JdbcTarefaDao {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public void finaliza(Long id) {
+
+		if (id == null) {
+			throw new IllegalStateException("Id da tarefa não deve ser nula.");
+		}
+
+		String sql = "UPDATE tarefas SET finalizado = ?, \"dataFinalizacao\" = ? WHERE id = ?";
+		PreparedStatement stmt;
+		
+		try {
+			
+			stmt = this.con.prepareStatement(sql);
+			stmt.setBoolean(1, true);
+			stmt.setDate(2, new Date(Calendar.getInstance().getTimeInMillis()));
+			stmt.setLong(3, id);
+			stmt.execute();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

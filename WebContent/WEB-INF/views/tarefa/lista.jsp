@@ -5,6 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<script type="text/javascript" src="resources/js/jquery.js"></script>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -12,6 +14,16 @@
 
 </head>
 <body>
+
+<script type="text/javascript">
+function finalizaAgora(id) {
+	$.post("finalizaTarefa", {'id' : id}, function() {
+		// selecionando o elemento html através da
+		// ID e alterando o HTML dele
+		$("#tarefa_"+id).html("Finalizado");
+	});
+}
+</script>
 
 	<a href="novaTarefa"><fmt:message key="tarefa.lista.subtitulo"/></a>
 	<br />
@@ -30,7 +42,12 @@
 				<td>${tarefa.id}</td>
 				<td>${tarefa.descricao}</td>
 				<c:if test="${tarefa.finalizado eq false}">
-					<td><fmt:message key="tarefa.lista.nao_finalizado"/></td>
+					<%--<td><fmt:message key="tarefa.lista.nao_finalizado"/></td> --%>
+					<td>
+						<a href="#" onClick="finalizaAgora(${tarefa.id})">
+							<fmt:message key="tarefa.lista.finaliza_agora"/>
+						</a>
+					</td>
 				</c:if>
 				<c:if test="${tarefa.finalizado eq true}">
 					<td><fmt:message key="tarefa.lista.finalizado"/></td>

@@ -10,8 +10,14 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<!-- Classe que seram mapeadas/pesquisadas para serem bens -->
 	<context:component-scan base-package="br.com.caleum.tarefas" />
+	
+	<!-- Indica que será utilizado anotation para configurar os bens -->
 	<mvc:annotation-driven />
+	
+	<!-- Ignorar todo acesso a conteúdo estático(css/js/imagens) -->
+	<mvc:default-servlet-handler/>
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
