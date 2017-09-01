@@ -16,19 +16,29 @@
 <body>
 
 <script type="text/javascript">
+
 function finalizaAgora(id) {
 	$.post("finalizaTarefa", {'id' : id}, function() {
 		// selecionando o elemento html através da
 		// ID e alterando o HTML dele
-		$("#tarefa_"+id).html("Finalizado");
+		$("#lista_td_finaliza_agora_" + id).html("Finalizado");
 	});
 }
+
+
+function excluiTarefa(id){
+	$.post("excluiTarefa", {'id' : id} , function(){
+		$("#lista_tr_" + id).hide();
+	});
+	
+}
+
 </script>
 
 	<a href="novaTarefa"><fmt:message key="tarefa.lista.subtitulo"/></a>
 	<br />
 	<br />
-	<table>
+	<table id="tarefa_lista_tarefa">
 		<tr>
 			<th><fmt:message key="tarefa.lista.campo.id" /></th>
 			<th><fmt:message key="tarefa.lista.campo.descricao" /></th>
@@ -36,14 +46,15 @@ function finalizaAgora(id) {
 			<th><fmt:message key="tarefa.lista.campo.dt_finalizacao" /></th>
 			<th></th>
 			<th></th>
+			<th></th>
 		</tr>
 		<c:forEach items="${tarefas}" var="tarefa">
-			<tr>
+			<tr id="lista_tr_${tarefa.id}">
 				<td>${tarefa.id}</td>
 				<td>${tarefa.descricao}</td>
 				<c:if test="${tarefa.finalizado eq false}">
 					<%--<td><fmt:message key="tarefa.lista.nao_finalizado"/></td> --%>
-					<td>
+					<td id="lista_td_finaliza_agora_${tarefa.id}">
 						<a href="#" onClick="finalizaAgora(${tarefa.id})">
 							<fmt:message key="tarefa.lista.finaliza_agora"/>
 						</a>
@@ -55,6 +66,7 @@ function finalizaAgora(id) {
 				<td><fmt:formatDate value="${tarefa.dataFinalizacao.time}" pattern="dd/MM/yyyy" /></td>
 				<td><a href="removeTarefa?id=${tarefa.id}"><fmt:message key="tarefa.lista.remover"/></a></td>
 				<td><a href="mostraTarefa?id=${tarefa.id}"><fmt:message key="tarefa.lista.alterar"/></a></td>
+				<td><a href="#" onclick="excluiTarefa(${tarefa.id})"><fmt:message key="tarefa.lista.excluir"/></a></td>
 			</tr>
 		</c:forEach>
 	</table>

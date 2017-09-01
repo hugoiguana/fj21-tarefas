@@ -1,5 +1,6 @@
 package br.com.caleum.tarefas.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -81,6 +82,14 @@ public class TarefasController {
 
 		JdbcTarefaDao dao = new JdbcTarefaDao();
 		dao.finaliza(id);
+		response.setStatus(200);
+	}
+
+	@RequestMapping("excluiTarefa")
+	public void excluiTarefa(Long id, HttpServletResponse response) {
+
+		JdbcTarefaDao dao = new JdbcTarefaDao();
+		dao.exclui(id);
 		response.setStatus(200);
 	}
 }
