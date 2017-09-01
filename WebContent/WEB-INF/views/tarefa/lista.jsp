@@ -18,10 +18,9 @@
 <script type="text/javascript">
 
 function finalizaAgora(id) {
-	$.post("finalizaTarefa", {'id' : id}, function() {
-		// selecionando o elemento html através da
-		// ID e alterando o HTML dele
-		$("#lista_td_finaliza_agora_" + id).html("Finalizado");
+	
+	$.post("finalizaTarefa", {'id' : id}, function(resposta) {
+		$("#lista_tr_" + id).html(resposta);
 	});
 }
 
@@ -54,7 +53,7 @@ function excluiTarefa(id){
 				<td>${tarefa.descricao}</td>
 				<c:if test="${tarefa.finalizado eq false}">
 					<%--<td><fmt:message key="tarefa.lista.nao_finalizado"/></td> --%>
-					<td id="lista_td_finaliza_agora_${tarefa.id}">
+					<td>
 						<a href="#" onClick="finalizaAgora(${tarefa.id})">
 							<fmt:message key="tarefa.lista.finaliza_agora"/>
 						</a>
