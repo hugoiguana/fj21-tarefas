@@ -30,10 +30,10 @@ function finalizaAgora(id) {
 	<br />
 	<table>
 		<tr>
-			<th><fmt:message key="tarefa.lista.id" /></th>
-			<th><fmt:message key="tarefa.lista.descricao" /></th>
-			<th><fmt:message key="tarefa.lista.finalizado" /></th>
-			<th><fmt:message key="tarefa.lista.dt_finalizacao" /></th>
+			<th><fmt:message key="tarefa.lista.campo.id" /></th>
+			<th><fmt:message key="tarefa.lista.campo.descricao" /></th>
+			<th><fmt:message key="tarefa.lista.campo.finalizado" /></th>
+			<th><fmt:message key="tarefa.lista.campo.dt_finalizacao" /></th>
 			<th></th>
 			<th></th>
 		</tr>

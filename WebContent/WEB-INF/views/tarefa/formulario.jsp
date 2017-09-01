@@ -5,35 +5,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<script type="text/javascript" src="resources/js/jquery.js"></script>
-
-<title>Adiciona tarefa</title>
-
-</head>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib tagdir="/WEB-INF/tags" prefix="caelum" %>
+
+<script type="text/javascript" src="resources/js/jquery.js"></script>
+<script type="text/javascript" src="resources/js/jquery-ui.min.js"></script>
+<link type="text/css" rel="stylesheet" href="resources/css/jquery-ui.min.css">
+
+<title><fmt:message key="tarefa.formulario.titulo"/></title>
+
+</head>
 
 <body>
 
 <%-- <c:import url="/WEB-INF/views/cabecalho.jsp" /> --%>
 
-<h3>Adicionar tarefas</h3>
+<h3><fmt:message key="tarefa.formulario.titulo"/></h3>
 
 <h3><form:errors path="tarefa.descricao" cssStyle="color:red"/></h3>
 
 <form action="adicionaTarefa" method="post">
 
-	Descrição: 
+	<fmt:message key="tarefa.formulario.campo.descricao"/> 
 	<br />
 	<textarea name="descricao" rows="5" cols="100"></textarea>
-<!-- 	Data Finalização: -->
-<!-- 	<input type="text" name="dataFinalizacao" /> -->
-<%-- 	<caelum:campoData id="dataFinalizacao" /> --%>
-<!-- 	<br /> -->
+	<br />
+	
+	<fmt:message key="tarefa.formulario.campo.data_finalizacao"/>
+	<!--<input type="text" name="dataFinalizacao" /> -->
+	<caelum:campoData id="dataFinalizacao" />
+	<br />
 
-	<input type="submit" value="Adicionar">
+	<input type="submit" value="<fmt:message key="tarefa.formulario.botao.adicionar"/>">
 	
 </form>
 
