@@ -27,3 +27,12 @@ TABLESPACE pg_default;
 ALTER TABLE public.tarefas
     OWNER to postgres;
 ------------------------------------------------------------------------------
+    
+CREATE TABLE public.usuarios (
+  login VARCHAR(255),
+  senha VARCHAR(255)
+);
+
+INSERT INTO usuarios(login, senha) values('admin', 'admin');    
+
+------------------------------------------------------------------------------
