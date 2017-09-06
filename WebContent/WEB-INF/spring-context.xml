@@ -11,7 +11,7 @@
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<!-- Classe que seram mapeadas/pesquisadas para serem bens -->
-	<context:component-scan base-package="br.com.caleum.tarefas" />
+	<context:component-scan base-package="br.com.caelum.tarefas" />
 	
 	<!-- Indica que será utilizado anotation para configurar os bens -->
 	<mvc:annotation-driven />
@@ -28,5 +28,10 @@
 		<property name="basename" value="/WEB-INF/mensagens/mensagens" />
 		<property name="defaultEncoding" value="UTF-8"/>
 	</bean>
+	
+	<!-- Configura o interceptador para o tratamento de autorização das páginas  -->
+	<mvc:interceptors>
+		<bean class="br.com.caelum.tarefas.interceptor.AutorizadorInterceptor" />
+	</mvc:interceptors>	
 
 </beans>

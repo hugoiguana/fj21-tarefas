@@ -1,6 +1,5 @@
-package br.com.caleum.tarefas.controller;
+package br.com.caelum.tarefas.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -9,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.caleum.tarefas.beans.Tarefa;
-import br.com.caleum.tarefas.dao.JdbcTarefaDao;
+import br.com.caelum.tarefas.beans.Tarefa;
+import br.com.caelum.tarefas.dao.JdbcTarefaDao;
 
 @Controller
 public class TarefasController {

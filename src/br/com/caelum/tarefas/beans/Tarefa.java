@@ -1,4 +1,4 @@
-package br.com.caleum.tarefas.beans;
+package br.com.caelum.tarefas.beans;
 
 import java.util.Calendar;
 

@@ -1,4 +1,4 @@
-package br.com.caleum.tarefas;
+package br.com.caelum.tarefas;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

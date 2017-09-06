@@ -1,12 +1,12 @@
-package br.com.caleum.tarefas.dao;
+package br.com.caelum.tarefas.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import br.com.caleum.tarefas.beans.Usuario;
-import br.com.caleum.tarefas.jdbc.ConectionFactory;
+import br.com.caelum.tarefas.beans.Usuario;
+import br.com.caelum.tarefas.jdbc.ConectionFactory;
 
 public class JdbcUsuarioDao {
 

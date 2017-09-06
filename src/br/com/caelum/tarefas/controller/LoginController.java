@@ -1,12 +1,12 @@
-package br.com.caleum.tarefas.controller;
+package br.com.caelum.tarefas.controller;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.caleum.tarefas.beans.Usuario;
-import br.com.caleum.tarefas.dao.JdbcUsuarioDao;
+import br.com.caelum.tarefas.beans.Usuario;
+import br.com.caelum.tarefas.dao.JdbcUsuarioDao;
 
 @Controller
 public class LoginController {
