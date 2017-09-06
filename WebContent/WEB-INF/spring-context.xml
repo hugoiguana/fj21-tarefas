@@ -34,4 +34,12 @@
 		<bean class="br.com.caelum.tarefas.interceptor.AutorizadorInterceptor" />
 	</mvc:interceptors>	
 
+	<!-- Configura o bean da conexão com o Postgres  -->
+	<bean id="postgresDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.postgresql.Driver"/>
+		<property name="url" value="jdbc:postgresql://localhost/fj21"/>
+		<property name="username" value="postgres"/>
+		<property name="password" value="admin"/>
+	</bean>
+
 </beans>

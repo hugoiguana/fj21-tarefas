@@ -9,21 +9,35 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import br.com.caelum.tarefas.beans.Tarefa;
-import br.com.caelum.tarefas.jdbc.ConectionFactory;
+import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import br.com.caelum.tarefas.beans.Tarefa;
+
+@Repository
 public class JdbcTarefaDao {
 
 	private Connection con;
 
-	public JdbcTarefaDao() {
-		super();
-		this.con = new ConectionFactory().getConection();
-	}
+//	public JdbcTarefaDao() {
+//		super();
+//		this.con = new ConectionFactory().getConection();
+//	}
 
-	public JdbcTarefaDao(Connection con) {
+	@Autowired
+	public JdbcTarefaDao(DataSource dataSource) {
+		
 		super();
-		this.con = con;
+		
+		try {
+			
+			this.con = dataSource.getConnection();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Tarefa getById(long id) {
@@ -172,7 +186,7 @@ public class JdbcTarefaDao {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public void finaliza(Long id) {
 
 		if (id == null) {
@@ -181,16 +195,16 @@ public class JdbcTarefaDao {
 
 		String sql = "UPDATE tarefas SET finalizado = ?, \"dataFinalizacao\" = ? WHERE id = ?";
 		PreparedStatement stmt;
-		
+
 		try {
-			
+
 			stmt = this.con.prepareStatement(sql);
 			stmt.setBoolean(1, true);
 			stmt.setDate(2, new Date(Calendar.getInstance().getTimeInMillis()));
 			stmt.setLong(3, id);
 			stmt.execute();
 			stmt.close();
-			
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

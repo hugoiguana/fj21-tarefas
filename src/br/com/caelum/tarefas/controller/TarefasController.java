@@ -3,6 +3,7 @@ package br.com.caelum.tarefas.controller;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,13 @@ import br.com.caelum.tarefas.dao.JdbcTarefaDao;
 
 @Controller
 public class TarefasController {
+
+	JdbcTarefaDao tarefaDao;
+
+	@Autowired
+	public TarefasController(JdbcTarefaDao tarefaDao) {
+		this.tarefaDao = tarefaDao;
+	}
 
 	@RequestMapping("novaTarefa")
 	public String form() {
@@ -30,7 +38,6 @@ public class TarefasController {
 		// return "tarefa/formulario";
 		// }
 
-		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
 		tarefaDao.adiciona(tarefa);
 
 		return "tarefa/adicionada";
@@ -38,8 +45,6 @@ public class TarefasController {
 
 	@RequestMapping("listaTarefas")
 	public String lista(Model model) {
-
-		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
 
 		model.addAttribute("tarefas", tarefaDao.getTarefas());
 
@@ -49,8 +54,6 @@ public class TarefasController {
 	@RequestMapping("removeTarefa")
 	public String remove(Tarefa tarefa) {
 
-		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
-
 		tarefaDao.exclui(tarefa.getId());
 
 		return "redirect:listaTarefas";
@@ -58,8 +61,6 @@ public class TarefasController {
 
 	@RequestMapping("mostraTarefa")
 	public String mostra(Tarefa tarefa, Model model) {
-
-		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
 
 		model.addAttribute("tarefa", tarefaDao.getById(tarefa.getId()));
 
@@ -69,8 +70,6 @@ public class TarefasController {
 	@RequestMapping("alteraTarefa")
 	public String altera(Tarefa tarefa) {
 
-		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
-
 		tarefaDao.altera(tarefa);
 
 		return "redirect:listaTarefas";
@@ -79,19 +78,16 @@ public class TarefasController {
 	@RequestMapping("finalizaTarefa")
 	public String finaliza(Long id, Model model) {
 
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-		dao.finaliza(id);
-		
-		model.addAttribute("tarefa", dao.getById(id));
-		
+		tarefaDao.finaliza(id);
+
+		model.addAttribute("tarefa", tarefaDao.getById(id));
+
 		return "tarefa/finalizada";
 	}
 
 	@RequestMapping("excluiTarefa")
 	public void excluiTarefa(Long id, HttpServletResponse response) {
-
-		JdbcTarefaDao dao = new JdbcTarefaDao();
-		dao.exclui(id);
+		tarefaDao.exclui(id);
 		response.setStatus(200);
 	}
 }
