@@ -15,9 +15,9 @@
 	<h2><fmt:message key="menu.subtitulo1"/></h2>
 	
 	<p><fmt:message key="menu.subtitulo2"/>, ${usuarioLogado.login}</p>
-	<a href="listaTarefas">
-		<fmt:message key="menu.clique_aqui1"/>
-	</a> <fmt:message key="menu.clique_aqui2"/>
+	<a href="listaTarefas"><fmt:message key="menu.clique_aqui1"/></a> <fmt:message key="menu.clique_aqui2"/>
+	<br/>
+	<a href="logout"><fmt:message key="menu.logout"/></a>
 
 </body>
 </html>
