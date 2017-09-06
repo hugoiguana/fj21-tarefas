@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script type="text/javascript" src="resources/js/jquery.js"></script>
+<link type="text/css" rel="stylesheet" href="resources/css/tarefas.css" />
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -52,7 +53,6 @@ function excluiTarefa(id){
 				<td>${tarefa.id}</td>
 				<td>${tarefa.descricao}</td>
 				<c:if test="${tarefa.finalizado eq false}">
-					<%--<td><fmt:message key="tarefa.lista.nao_finalizado"/></td> --%>
 					<td>
 						<a href="#" onClick="finalizaAgora(${tarefa.id})">
 							<fmt:message key="tarefa.lista.finaliza_agora"/>
