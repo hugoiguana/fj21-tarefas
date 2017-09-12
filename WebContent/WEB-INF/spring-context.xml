@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
 	http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- Classe que seram mapeadas/pesquisadas para serem bens -->
 	<context:component-scan base-package="br.com.caelum.tarefas" />
@@ -33,7 +37,8 @@
 	<mvc:interceptors>
 		<bean class="br.com.caelum.tarefas.interceptor.AutorizadorInterceptor" />
 	</mvc:interceptors>	
-
+	<!--  -->
+	<!--  -->
 	<!-- Configura o bean da conexão com o Postgres  -->
 	<bean id="postgresDataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver"/>
@@ -41,5 +46,24 @@
 		<property name="username" value="postgres"/>
 		<property name="password" value="admin"/>
 	</bean>
+	<!--  -->
+	<!--  -->
+	<!-- Intergrando o Spring com o Hibernate/JPA -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="postgresDataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+	</bean>	
+	
+	<!-- gerenciamento da transação pelo spring -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	</bean>
+	
+	<!-- Indica que o controle de transações do hibernate/JPA será feito via anotação -->
+	<tx:annotation-driven/>	
+	<!--  -->
+	<!--  -->
 
 </beans>

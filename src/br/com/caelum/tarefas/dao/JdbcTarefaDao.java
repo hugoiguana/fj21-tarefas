@@ -75,7 +75,7 @@ public class JdbcTarefaDao {
 		}
 	}
 
-	public List<Tarefa> getTarefas() {
+	public List<Tarefa> lista() {
 
 		try {
 
@@ -172,7 +172,7 @@ public class JdbcTarefaDao {
 		}
 	}
 
-	public void exclui(Long id) {
+	public void remove(Long id) {
 
 		try {
 

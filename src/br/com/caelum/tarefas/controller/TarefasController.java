@@ -1,6 +1,7 @@
 package br.com.caelum.tarefas.controller;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +11,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.caelum.tarefas.beans.Tarefa;
-import br.com.caelum.tarefas.dao.JdbcTarefaDao;
+import br.com.caelum.tarefas.dao.ITarefaDao;
 
+@Transactional
 @Controller
 public class TarefasController {
 
-	JdbcTarefaDao tarefaDao;
-
 	@Autowired
-	public TarefasController(JdbcTarefaDao tarefaDao) {
-		this.tarefaDao = tarefaDao;
-	}
+	ITarefaDao tarefaDao;
+
+	// JdbcTarefaDao tarefaDao;
+
+	// @Autowired
+	// public TarefasController(JdbcTarefaDao tarefaDao) {
+	// this.tarefaDao = tarefaDao;
+	// }
 
 	@RequestMapping("novaTarefa")
 	public String form() {
@@ -46,7 +51,7 @@ public class TarefasController {
 	@RequestMapping("listaTarefas")
 	public String lista(Model model) {
 
-		model.addAttribute("tarefas", tarefaDao.getTarefas());
+		model.addAttribute("tarefas", tarefaDao.lista());
 
 		return "tarefa/lista";
 	}
@@ -54,7 +59,7 @@ public class TarefasController {
 	@RequestMapping("removeTarefa")
 	public String remove(Tarefa tarefa) {
 
-		tarefaDao.exclui(tarefa.getId());
+		tarefaDao.remove(tarefa);
 
 		return "redirect:listaTarefas";
 	}
@@ -87,7 +92,8 @@ public class TarefasController {
 
 	@RequestMapping("excluiTarefa")
 	public void excluiTarefa(Long id, HttpServletResponse response) {
-		tarefaDao.exclui(id);
+		tarefaDao.remove(tarefaDao.getById(id));
 		response.setStatus(200);
 	}
+	
 }
