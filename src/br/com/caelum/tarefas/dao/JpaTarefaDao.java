@@ -31,7 +31,10 @@ public class JpaTarefaDao implements ITarefaDao {
 
 	@Override
 	public void adiciona(Tarefa tarefa) {
+//		manager.getTransaction().begin();
 		manager.persist(tarefa);
+//		manager.getTransaction().commit();
+//		manager.close();
 	}
 
 	@Override

@@ -2,9 +2,11 @@ package br.com.caelum.tarefas.beans;
 
 import java.util.Calendar;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -13,6 +15,7 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+@Table(name="tarefas")
 public class Tarefa {
 
 	@Id
@@ -29,6 +32,7 @@ public class Tarefa {
 	
 	@DateTimeFormat(pattern="dd/mm/yyyy")// Mapeamento do SPRING
 	@Temporal(TemporalType.DATE) // Mapeamento do hibernate/JPA
+	@Column(name = "\"dataFinalizacao\"", nullable = true)
 	private Calendar dataFinalizacao;
 
 	public Long getId() {
